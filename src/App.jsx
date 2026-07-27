@@ -377,7 +377,7 @@ function StepRow({ num, title, body, lang, last }) {
   );
 }
 
-function SellSection({ t, lang, onStart }) {
+function SellSection({ t, lang, onRegister }) {
   const S = t.sell;
   return (
     <section style={{ paddingInline: 16, marginTop: 40 }}>
@@ -391,7 +391,7 @@ function SellSection({ t, lang, onStart }) {
             {S.heroSubtitle}
           </div>
           <div style={{ marginTop: 22 }}>
-            <PillButton onClick={onStart} href={DEMO_URL}>{S.heroCta}</PillButton>
+            <PillButton onClick={onRegister}>{S.heroCta}</PillButton>
           </div>
         </div>
 
@@ -406,7 +406,7 @@ function SellSection({ t, lang, onStart }) {
         </div>
 
         <div style={{ marginTop: 28, textAlign: 'center' }}>
-          <PillButton href={DEMO_URL}>{S.ctaTitle}</PillButton>
+          <PillButton onClick={onRegister}>{S.ctaTitle}</PillButton>
         </div>
 
         {/* Still hesitant */}
@@ -414,7 +414,7 @@ function SellSection({ t, lang, onStart }) {
           <div style={{ fontSize: 18, fontWeight: 800, color: '#1A1A1A' }}>{S.hesitantTitle}</div>
           <div style={{ fontSize: 13.5, color: '#5C5C5C', lineHeight: 1.6, marginTop: 10 }}>{S.hesitantBody}</div>
           <div style={{ marginTop: 16 }}>
-            <PillButton primary={false} href={DEMO_URL}>{S.hesitantCta}</PillButton>
+            <PillButton primary={false} onClick={onRegister}>{S.hesitantCta}</PillButton>
           </div>
         </div>
       </div>
@@ -577,7 +577,7 @@ export default function App() {
       </div>
 
       <Hero t={t} lang={lang} />
-      <SellSection t={t} lang={lang} onStart={() => {}} />
+      <SellSection t={t} lang={lang} onRegister={openRegister} />
       <FAQSection t={t} lang={lang} />
       <Footer t={t} />
 
