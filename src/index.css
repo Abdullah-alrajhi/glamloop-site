@@ -1,0 +1,24 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: #FAFAF7;
+  color: #1A1A1A;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button, input {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}
