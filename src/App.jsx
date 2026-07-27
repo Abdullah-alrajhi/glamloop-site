@@ -84,7 +84,7 @@ function LangSwitcher({ lang, setLang, t }) {
 
 // ─── Header ─────────────────────────────────────────────────────────────────
 
-function Header({ t, lang, setLang, onRegister }) {
+function Header({ t, lang, setLang }) {
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 30,
@@ -96,13 +96,13 @@ function Header({ t, lang, setLang, onRegister }) {
       <div style={{
         maxWidth: 760, margin: '0 auto', height: 60,
         paddingInline: 16,
-        display: 'grid', gridTemplateColumns: 'auto 1fr auto', alignItems: 'center', gap: 8,
+        display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: 8,
       }}>
         {/* start zone: language switcher */}
         <div style={{ justifySelf: 'start' }}>
           <LangSwitcher lang={lang} setLang={setLang} t={t} />
         </div>
-        {/* center zone: brand lockup */}
+        {/* center zone: brand lockup (stays optically centered on the page) */}
         <a href="#top" style={{
           display: 'flex', alignItems: 'center', gap: 6, height: '100%',
           justifyContent: 'center', textDecoration: 'none',
@@ -114,14 +114,8 @@ function Header({ t, lang, setLang, onRegister }) {
             lineHeight: 1, position: 'relative', top: 2, direction: 'ltr',
           }}>GlamLoop</span>
         </a>
-        {/* end zone: register CTA */}
-        <div style={{ justifySelf: 'end' }}>
-          <button onClick={onRegister} style={{
-            padding: '9px 16px', background: C.ink, color: C.surface,
-            border: 'none', borderRadius: 12, fontSize: 13, fontWeight: 700,
-            fontFamily: 'inherit', cursor: 'pointer', whiteSpace: 'nowrap',
-          }}>{t.header.registerCta}</button>
-        </div>
+        {/* end zone: empty spacer, balances the switcher so the logo stays centered */}
+        <div aria-hidden="true" />
       </div>
     </header>
   );
@@ -668,7 +662,7 @@ export default function App() {
 
   return (
     <div id="top" dir={t.dir} style={{ background: C.bg, minHeight: '100vh', color: C.ink }}>
-      <Header t={t} lang={lang} setLang={setLang} onRegister={openRegister} />
+      <Header t={t} lang={lang} setLang={setLang} />
 
       <Hero t={t} lang={lang} />
       <SellSection t={t} lang={lang} onRegister={openRegister} onContact={openContact} />
