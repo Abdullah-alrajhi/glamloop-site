@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { X, Check, Globe, ArrowUpRight } from 'lucide-react';
-import { C, DEMO_URL } from './theme.js';
+import { X, Check, Globe, MessageCircle } from 'lucide-react';
+import { C } from './theme.js';
 import { CONTENT, PAYMENT_METHODS, SOCIAL_LINKS } from './content.js';
 
 // ─── Visual primitives (ported from the prototype) ──────────────────────────
@@ -220,6 +220,108 @@ function RegisterModal({ t, lang, onClose }) {
   );
 }
 
+// ─── Contact-us modal ───────────────────────────────────────────────────────
+
+function ContactModal({ t, onClose }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    const handler = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  const submit = (e) => {
+    e.preventDefault();
+    // No backend — the message is only logged locally, nothing is stored.
+    console.log('[GlamLoop] Contact message:', { name, email, message });
+    setDone(true);
+  };
+
+  const K = t.contact;
+
+  return (
+    <div onClick={onClose} style={{
+      position: 'fixed', inset: 0, zIndex: 500,
+      background: 'rgba(0,0,0,0.45)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16,
+    }}>
+      <div onClick={(e) => e.stopPropagation()} dir={t.dir} style={{
+        background: C.surface, borderRadius: 22, padding: '28px 24px 30px',
+        maxWidth: 420, width: '100%', position: 'relative',
+        boxShadow: '0 16px 48px rgba(0,0,0,0.2)',
+      }}>
+        <button onClick={onClose} aria-label={K.close} style={{
+          position: 'absolute', top: 16, insetInlineStart: 16,
+          width: 34, height: 34, borderRadius: 999, background: C.surfaceTint,
+          border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          cursor: 'pointer',
+        }}>
+          <X size={17} color={C.ink} strokeWidth={2} />
+        </button>
+
+        {done ? (
+          <div style={{ textAlign: 'center', paddingTop: 8 }}>
+            <div style={{
+              width: 64, height: 64, borderRadius: 999, background: C.successTint,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 16px',
+            }}>
+              <Check size={30} color={C.success} strokeWidth={2.5} />
+            </div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: C.ink, marginBottom: 8 }}>{K.successTitle}</div>
+            <div style={{ fontSize: 14, color: C.inkMuted, lineHeight: 1.6, marginBottom: 22 }}>{K.successBody}</div>
+            <PillButton onClick={onClose} fullWidth>{K.successCta}</PillButton>
+          </div>
+        ) : (
+          <form onSubmit={submit}>
+            {/* Icon marks this modal as distinct from the register-interest one */}
+            <div style={{
+              width: 52, height: 52, borderRadius: 999, background: C.sellTint,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '4px auto 14px',
+            }}>
+              <MessageCircle size={24} color={C.ink} strokeWidth={1.9} />
+            </div>
+            <div style={{ fontSize: 21, fontWeight: 800, color: C.ink, textAlign: 'center', marginBottom: 6 }}>
+              {K.title}
+            </div>
+            <div style={{ fontSize: 13.5, color: C.inkMuted, textAlign: 'center', lineHeight: 1.6, marginBottom: 22 }}>
+              {K.subtitle}
+            </div>
+
+            <label style={{ display: 'block', marginBottom: 14 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: C.ink, marginBottom: 6 }}>{K.nameLabel}</div>
+              <input required value={name} onChange={(e) => setName(e.target.value)}
+                placeholder={K.namePlaceholder}
+                style={{ ...inputStyle, textAlign: 'start' }} />
+            </label>
+
+            <label style={{ display: 'block', marginBottom: 14 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: C.ink, marginBottom: 6 }}>{K.emailLabel}</div>
+              <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                placeholder={K.emailPlaceholder}
+                style={{ ...inputStyle, direction: 'ltr', textAlign: 'start' }} />
+            </label>
+
+            <label style={{ display: 'block', marginBottom: 22 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: C.ink, marginBottom: 6 }}>{K.messageLabel}</div>
+              <textarea required rows={4} value={message} onChange={(e) => setMessage(e.target.value)}
+                placeholder={K.messagePlaceholder}
+                style={{ ...inputStyle, textAlign: 'start', resize: 'vertical', minHeight: 96, lineHeight: 1.6 }} />
+            </label>
+
+            <PillButton type="submit" fullWidth>{K.submit}</PillButton>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── How-it-works step modal ────────────────────────────────────────────────
 
 function StepsModal({ title, steps, lang, onClose, closeLabel }) {
@@ -377,7 +479,7 @@ function StepRow({ num, title, body, lang, last }) {
   );
 }
 
-function SellSection({ t, lang, onRegister }) {
+function SellSection({ t, lang, onRegister, onContact }) {
   const S = t.sell;
   return (
     <section style={{ paddingInline: 16, marginTop: 40 }}>
@@ -414,7 +516,7 @@ function SellSection({ t, lang, onRegister }) {
           <div style={{ fontSize: 18, fontWeight: 800, color: '#1A1A1A' }}>{S.hesitantTitle}</div>
           <div style={{ fontSize: 13.5, color: '#5C5C5C', lineHeight: 1.6, marginTop: 10 }}>{S.hesitantBody}</div>
           <div style={{ marginTop: 16 }}>
-            <PillButton primary={false} onClick={onRegister}>{S.hesitantCta}</PillButton>
+            <PillButton primary={false} onClick={onContact}>{S.hesitantCta}</PillButton>
           </div>
         </div>
       </div>
@@ -552,6 +654,7 @@ function Footer({ t }) {
 export default function App() {
   const [lang, setLang] = useState('ar');
   const [showRegister, setShowRegister] = useState(false);
+  const [showContact, setShowContact] = useState(false);
   const t = CONTENT[lang];
 
   // Switch document language AND direction so the whole layout mirrors.
@@ -561,29 +664,21 @@ export default function App() {
   }, [lang, t.dir]);
 
   const openRegister = useCallback(() => setShowRegister(true), []);
+  const openContact = useCallback(() => setShowContact(true), []);
 
   return (
     <div id="top" dir={t.dir} style={{ background: C.bg, minHeight: '100vh', color: C.ink }}>
       <Header t={t} lang={lang} setLang={setLang} onRegister={openRegister} />
 
-      {/* Try the live demo — near the very top of the page */}
-      <div style={{ paddingInline: 16, marginTop: 18 }}>
-        <div style={{ maxWidth: 760, margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
-          <PillButton href={DEMO_URL} primary={false} compact>
-            {t.header.demoCta}
-            <ArrowUpRight size={16} strokeWidth={2} />
-          </PillButton>
-        </div>
-      </div>
-
       <Hero t={t} lang={lang} />
-      <SellSection t={t} lang={lang} onRegister={openRegister} />
+      <SellSection t={t} lang={lang} onRegister={openRegister} onContact={openContact} />
       <FAQSection t={t} lang={lang} />
       <Footer t={t} />
 
       <div style={{ height: 40 }} />
 
       {showRegister && <RegisterModal t={t} lang={lang} onClose={() => setShowRegister(false)} />}
+      {showContact && <ContactModal t={t} onClose={() => setShowContact(false)} />}
     </div>
   );
 }

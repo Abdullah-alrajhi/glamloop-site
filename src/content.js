@@ -17,7 +17,6 @@ export const CONTENT = {
 
     header: {
       registerCta: 'سجّلي اهتمامك',
-      demoCta: 'جرّبي النسخة التجريبية',
       langAria: 'تغيير اللغة إلى الإنجليزية',
     },
 
@@ -79,12 +78,28 @@ export const CONTENT = {
     sell: {
       heroTitle: 'بيعي فساتينك معنا',
       heroSubtitle: 'بيعي فستانك، وخلي قيمته تصير إطلالتك الجاية',
-      heroCta: 'ابدئي العرض',
+      heroCta: 'سجّلي اهتمامك',
       howTitle: 'كيف تعمل المنصة',
-      ctaTitle: 'ابدئي العرض الآن',
-      hesitantTitle: 'للحين مترددة بالبيع؟',
-      hesitantBody: 'لا تشيلين هم، نساعدك خطوة بخطوة ونرد على أي استفسار عندك',
+      ctaTitle: 'سجّلي اهتمامك',
+      hesitantTitle: 'للحين مترددة تجربينا؟',
+      hesitantBody: 'راسلينا ونمشي معك خطوة بخطوة، نرد على كل استفساراتك، ونوصلك للنسخة التجريبية الكاملة عشان تجربينها بنفسك',
       hesitantCta: 'تواصلي معنا',
+    },
+
+    contact: {
+      title: 'تواصلي معنا',
+      subtitle: 'عندك أسئلة، أو تبين وصول مبكر لتجربة النسخة التجريبية؟ راسلينا ونرد عليك بأقرب وقت.',
+      nameLabel: 'الاسم',
+      namePlaceholder: 'اكتبي اسمك',
+      emailLabel: 'البريد الإلكتروني',
+      emailPlaceholder: 'name@example.com',
+      messageLabel: 'رسالتك',
+      messagePlaceholder: 'كيف نقدر نساعدك؟',
+      submit: 'أرسلي الرسالة',
+      close: 'إغلاق',
+      successTitle: 'تم إرسال رسالتك!',
+      successBody: 'شكراً لتواصلك معنا، بنرد عليك على بريدك الإلكتروني بأقرب وقت.',
+      successCta: 'تمام',
     },
 
     faq: {
@@ -127,12 +142,11 @@ export const CONTENT = {
   en: {
     dir: 'ltr',
     langLabel: 'English',
-    otherLangShort: 'AR',
+    otherLangShort: 'عربي',
     brand: 'GlamLoop',
 
     header: {
       registerCta: 'Register your interest',
-      demoCta: 'Try the live demo',
       langAria: 'Switch language to Arabic',
     },
 
@@ -194,12 +208,28 @@ export const CONTENT = {
     sell: {
       heroTitle: 'Sell your dresses with us',
       heroSubtitle: 'Sell your dress and turn its value into your next look',
-      heroCta: 'Start listing',
+      heroCta: 'Register your interest',
       howTitle: 'How the platform works',
-      ctaTitle: 'Start listing now',
-      hesitantTitle: 'Still unsure about selling?',
-      hesitantBody: 'Don’t worry — we guide you step by step and answer any question you have',
+      ctaTitle: 'Register your interest',
+      hesitantTitle: 'Still unsure about using us?',
+      hesitantBody: "Reach out and we'll walk you through everything, answer any questions, and get you access to try the full live demo.",
       hesitantCta: 'Contact us',
+    },
+
+    contact: {
+      title: 'Contact us',
+      subtitle: "Have questions, or want early access to try the live demo? Send us a message and we'll get back to you.",
+      nameLabel: 'Name',
+      namePlaceholder: 'Your name',
+      emailLabel: 'Email',
+      emailPlaceholder: 'name@example.com',
+      messageLabel: 'Message',
+      messagePlaceholder: 'How can we help?',
+      submit: 'Send message',
+      close: 'Close',
+      successTitle: 'Message sent!',
+      successBody: "Thanks for reaching out — we'll get back to you by email soon.",
+      successCta: 'Done',
     },
 
     faq: {

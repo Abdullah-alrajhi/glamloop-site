@@ -8,5 +8,3 @@ export const C = {
   danger: '#A33A2C', dangerTint: '#F4E3E0',
   buyTint: '#F0EDE7', sellTint: '#F1E9E9',
 };
-
-export const DEMO_URL = 'https://demo.glamloop.app';
